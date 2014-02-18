@@ -37,7 +37,7 @@ Then start the exe file (or set up Windows to start it up for you automatically)
 Download
 ===============================
 
-Currently only available in source form.
+Download binaries from [here][2].
 
 Want to contribute?
 ===============================
@@ -66,3 +66,4 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  [1]: https://developers.google.com/gmail/gmail_inbox_feed
+ [2]: https://github.com/xps/Gmail-Notifier-Replacement/releases
