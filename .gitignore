@@ -1,0 +1,15 @@
+# Build products
+[Bb]in
+[Oo]bj
+
+# User config files
+*.user
+*.suo
+
+# Backup files
+*.bak
+*.orig
+
+# NuGet packages
+packages/
+!packages/repositories.config
