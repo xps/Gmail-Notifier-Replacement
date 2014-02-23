@@ -52,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmailPreview.cs" />
     <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -91,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="License.txt" />
+    <None Include="Screenshot.png" />
     <None Include="Icons\systray-icon-faded.ico" />
     <None Include="Icons\systray-icon-error.ico" />
     <None Include="Icons\systray-icon-blue.ico" />

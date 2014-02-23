@@ -1,6 +1,7 @@
 ﻿using GmailNotifierReplacement.Icons;
 using log4net;
 using System;
+using System.Linq;
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows.Forms;
@@ -17,7 +18,8 @@ namespace GmailNotifierReplacement
         private int notificationDelay;
 
         // The current state of the inbox
-        private int unreadCount = 0;
+        private int unreadCount;
+        private DateTime? lastMail;
 
         // The ATOM client
         private AtomMailChecker atomMailChecker;
@@ -60,27 +62,53 @@ namespace GmailNotifierReplacement
             base.SetVisibleCore(value);
         }
 
-        // Connects to the IMAP server to check for new mail
+        // Downloads the latest Atom feed to check for new mail
         private void CheckMail()
         {
             Logger.Debug("Checking mail...");
 
             try
             {
+                // Check for new mail
                 atomMailChecker.Refresh();
-
-                unreadCount = atomMailChecker.GetUnreadMailCount();
-                
+                unreadCount = atomMailChecker.GetUnreadEmailCount();
                 Logger.Debug("Unread mail count: " + unreadCount);
 
+                // Update the icon
                 notifyIcon.Icon = unreadCount > 0 ? SystrayIcons.SystrayIconBlue : SystrayIcons.SystrayIconFaded;
                 notifyIcon.Text = unreadCount > 0 ? string.Format("{0} unread emails", unreadCount) : "No unread mail";
+
+                // Show a notification
+                if (unreadCount > 0)
+                {
+                    var newEmails = atomMailChecker.GetNewEmails(lastMail);
+
+                    if (newEmails.Count() == 1)
+                    {
+                        notifyIcon.BalloonTipTitle = "New mail from: " + newEmails.Single().From;
+                        notifyIcon.BalloonTipText = newEmails.Single().Subject + Environment.NewLine + newEmails.Single().Preview;
+                        notifyIcon.ShowBalloonTip(notificationDelay);
+                    }
+                    if (newEmails.Count() > 1)
+                    {
+                        notifyIcon.BalloonTipTitle = "You've got mail";
+                        notifyIcon.BalloonTipText = string.Format("You have {0} new emails", unreadCount);
+                        notifyIcon.ShowBalloonTip(notificationDelay);
+                    }                    
+                }
+                else
+                {
+                    notifyIcon.BalloonTipTitle = "No unread mail";
+                    notifyIcon.BalloonTipText = "You have no unread mail.";
+                }
+
+                // Remember the last email that we showed
+                lastMail = atomMailChecker.GetLastEmailDate();
             }
             catch (Exception x)
             {
                 Logger.Warn("Error while checking mail", x);
 
-                unreadCount = 0;
                 notifyIcon.Icon = SystrayIcons.SystrayIconError;
                 notifyIcon.Text = "Couldn't check mail";
             }
@@ -110,6 +138,11 @@ namespace GmailNotifierReplacement
         {
             Logger.Debug("Context menu: check mail now");
             CheckMail();
+        }
+
+        private void tellMeAgainToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            notifyIcon.ShowBalloonTip(notificationDelay);
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)

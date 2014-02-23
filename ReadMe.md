@@ -3,12 +3,14 @@ What is it?
 
 This is an open-source alternative to the official Google Gmail Notifier (now retired).
 
+![Screenshot][3]
+
 Features
 ===============================
 
-It is largely incomplete at this point. Currently it will only show the mail icon in the system tray,
-turning blue when you have unread mail. Hovering over the icon will show a tooltip letting you know
-how many unread emails you have.
+Currently it will show the mail icon in the system tray, turning blue when you have
+unread mail. A balloon tooltip will pop up when you receive mail. Hovering over the
+icon will show a tooltip letting you know how many unread emails you have.
 
 It will check mail every couple of minutes via [Gmail's Atom Feed][1].
 
@@ -19,7 +21,6 @@ To do list
 
  - Options dialog
  - Sounds
- - Popup notifications
  - Installer
 
 How to use?
@@ -39,6 +40,17 @@ Download
 
 Download binaries from [here][2].
 
+Change Log
+===============================
+
+**1.1 - Feb 21, 2014**
+
+ - Added notifications (balloon tips)
+
+**1.0 - Feb 18, 2014**
+
+ - Initial version
+ 
 Want to contribute?
 ===============================
 
@@ -67,3 +79,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  [1]: https://developers.google.com/gmail/gmail_inbox_feed
  [2]: https://github.com/xps/Gmail-Notifier-Replacement/releases
+ [3]: https://raw2.github.com/xps/Gmail-Notifier-Replacement/master/Screenshot.png

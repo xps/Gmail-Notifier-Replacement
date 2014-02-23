@@ -82,7 +82,7 @@
             this.tellMeAgainToolStripMenuItem.Name = "tellMeAgainToolStripMenuItem";
             this.tellMeAgainToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.tellMeAgainToolStripMenuItem.Text = "Tell Me A&gain";
-            this.tellMeAgainToolStripMenuItem.Visible = false;
+            this.tellMeAgainToolStripMenuItem.Click += new System.EventHandler(this.tellMeAgainToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
