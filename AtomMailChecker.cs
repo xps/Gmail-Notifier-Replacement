@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Security;
 using System.Xml.Linq;
 
 namespace GmailNotifierReplacement
@@ -10,23 +11,19 @@ namespace GmailNotifierReplacement
     public class AtomMailChecker
     {
         private string _atomFeedUrl;
-        private string _username;
-        private string _password;
 
         private XDocument _feed;
 
-        public AtomMailChecker(string atomFeedUrl, string username, string password)
+        public AtomMailChecker(string atomFeedUrl)
         {
             this._atomFeedUrl = atomFeedUrl;
-            this._username = username;
-            this._password = password;
         }
 
-        public void Refresh()
+        public void Refresh(string username, SecureString password)
         {
             var request = WebRequest.Create(_atomFeedUrl);
 
-            request.Credentials = new NetworkCredential(_username, _password);
+            request.Credentials = new NetworkCredential(username, PasswordEncryption.ToInsecureString(password));
 
             using (var response = request.GetResponse())
             using (var stream = response.GetResponseStream())

@@ -1,9 +1,9 @@
 ﻿using GmailNotifierReplacement.Icons;
 using log4net;
 using System;
-using System.Linq;
 using System.Configuration;
 using System.Diagnostics;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace GmailNotifierReplacement
@@ -24,8 +24,9 @@ namespace GmailNotifierReplacement
         // The ATOM client
         private AtomMailChecker atomMailChecker;
 
-        // The about form (singleton)
+        // Forms
         private AboutForm aboutForm;
+        private OptionsForm optionsForm;
 
         // Constructor
         public MainForm()
@@ -37,17 +38,22 @@ namespace GmailNotifierReplacement
             this.notificationDelay = Convert.ToInt32(ConfigurationManager.AppSettings["NotificationDelay"]);
 
             // Initialize the ATOM client
-            this.atomMailChecker = new AtomMailChecker(
-                ConfigurationManager.AppSettings["AtomFeedUrl"],
-                ConfigurationManager.AppSettings["Username"],
-                ConfigurationManager.AppSettings["Password"]
-            );
+            this.atomMailChecker = new AtomMailChecker(ConfigurationManager.AppSettings["AtomFeedUrl"]);
 
             // Set the timer interval from the config (convert minutes to milliseconds)
             timer.Interval = Convert.ToInt32(ConfigurationManager.AppSettings["CheckInterval"]) * 60 * 1000;
 
-            // Don't wait for the first timer event
-            CheckMail();
+            // Have we set the username/password already?
+            if (string.IsNullOrEmpty(UserSettings.Default.Username))
+            {
+                // Ask for credentials
+                ShowOptions();
+            }
+            else
+            {
+                // Don't wait for the first timer event
+                CheckMail();
+            }
         }
 
         // This makes sure that this window is always hidden
@@ -69,8 +75,19 @@ namespace GmailNotifierReplacement
 
             try
             {
+                // Get credentials
+                var username = UserSettings.Default.Username;
+                var password = PasswordEncryption.DecryptString(UserSettings.Default.Password);
+                if (string.IsNullOrEmpty(username))
+                {
+                    Logger.Warn("Missing credentials");
+                    notifyIcon.Icon = SystrayIcons.SystrayIconError;
+                    notifyIcon.Text = "Please set username/password in Options";
+                    return;
+                }
+
                 // Check for new mail
-                atomMailChecker.Refresh();
+                atomMailChecker.Refresh(username, password);
                 unreadCount = atomMailChecker.GetUnreadEmailCount();
                 Logger.Debug("Unread mail count: " + unreadCount);
 
@@ -120,6 +137,39 @@ namespace GmailNotifierReplacement
             CheckMail();
         }
 
+        // Shows the Options form
+        private void ShowOptions()
+        {
+            if (optionsForm == null)
+            {
+                optionsForm = new OptionsForm();
+                optionsForm.FormClosed += (form, _) =>
+                {
+                    if (optionsForm.DialogResult == DialogResult.OK)
+                        CheckMail();
+
+                    optionsForm = null;
+                };
+            }
+
+            optionsForm.Show();
+        }
+
+        // Shows the About form
+        private void ShowAbout()
+        {
+            if (aboutForm == null)
+            {
+                aboutForm = new AboutForm();
+                aboutForm.FormClosed += (form, _) =>
+                {
+                    aboutForm = null;
+                };
+            }
+
+            aboutForm.Show();
+        }
+
         #region Context Menu Handlers
 
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
@@ -145,17 +195,16 @@ namespace GmailNotifierReplacement
             notifyIcon.ShowBalloonTip(notificationDelay);
         }
 
+        private void optionsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logger.Debug("Context menu: options");
+            ShowOptions();
+        }
+
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logger.Debug("Context menu: about");
-
-            lock (this)
-            {
-                if (aboutForm == null)
-                    aboutForm = new AboutForm();
-            }
-
-            aboutForm.ShowDialog(this);
+            ShowAbout();
         }
 
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
