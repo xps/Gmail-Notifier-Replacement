@@ -19,19 +19,16 @@ It will check mail every couple of minutes via [Gmail's Atom Feed][1].
 To do list
 ===============================
 
- - Options dialog
  - Sounds
  - Installer
 
 How to use?
 ===============================
 
-Download, unzip, and edit the config file to set your username and password.
+First, you will need to **generate an application-specific password** in your [Google Account][4], under the Security > Password > App Passwords section. It will not work with your real password.
 
-You will need to **generate an application-specific password** in your Google Account, under the Security > Password > App Passwords section.
-It will not work with your real password.
-
-Then start the exe file (or set up Windows to start it up for you automatically).
+Download, unzip, and run the exe file (or set up Windows to start it up for you automatically).
+On the first run, you will be asked for credentials (these will be stored [securely][5]).
 
 **Requires the .NET Framework 3.5 or above** (Client Profile is ok).
 
@@ -42,6 +39,10 @@ Download binaries from [here][2].
 
 Change Log
 ===============================
+
+**1.2 - Mar 3, 2014**
+
+ - Credentials now set via the Options dialog instead of directly in the config file, and stored securely using the Windows Data Protection API.
 
 **1.1 - Feb 21, 2014**
 
@@ -80,3 +81,5 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  [1]: https://developers.google.com/gmail/gmail_inbox_feed
  [2]: https://github.com/xps/Gmail-Notifier-Replacement/releases
  [3]: https://raw2.github.com/xps/Gmail-Notifier-Replacement/master/Screenshot.png
+ [4]: https://www.google.com/settings/security
+ [5]: http://msdn.microsoft.com/en-us/library/ms995355.aspx
