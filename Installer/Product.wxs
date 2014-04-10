@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+    <Product Id="e0777d66-593d-4b47-a746-d1dd80c68526" Name="Gmail Notifier Replacement" Language="1033" Version="1.0.0.0" Manufacturer="XPS" UpgradeCode="2aeacf34-7c6e-4e29-9251-961c84a36529">
+        
+        <Package Id="9d27d280-6925-4ced-bd20-9d71eaec198b" InstallerVersion="200" Compressed="yes" InstallPrivileges="elevated" InstallScope="perMachine" />
+        <MajorUpgrade DowngradeErrorMessage="A newer version of [ProductName] is already installed." />
+        <MediaTemplate EmbedCab="yes" />
+        
+        <UI>
+            <UIRef Id="WixUI_Minimal" />
+            <Publish Dialog="ExitDialog" Control="Finish" Event="DoAction" Value="LaunchApplication">NOT Installed</Publish>
+        </UI>
+
+        <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
+        <WixVariable Id="WixUIDialogBmp" Value="Dialog.bmp" />
+        
+        <Feature Id="ProductFeature" Title="Installer" Level="1">
+            <ComponentGroupRef Id="Binaries" />
+            <ComponentRef Id="Shortcuts" />
+            <ComponentRef Id="Registry" />
+        </Feature>
+
+        <Directory Id="TARGETDIR" Name="SourceDir">
+            <Directory Id="ProgramFilesFolder">
+                <Directory Id="INSTALLFOLDER" Name="Gmail Notifier Replacement" />
+            </Directory>
+            <Directory Id="ProgramMenuFolder">
+                <Directory Id="ApplicationProgramsFolder" Name="Gmail Notifier Replacement" />
+            </Directory>
+        </Directory>
+
+        <ComponentGroup Id="Binaries" Directory="INSTALLFOLDER">
+            <Component Guid="fe11694a-a0e7-48be-8d86-186e27691fe2">
+                <File Source="..\Application\bin\debug\GmailNotifierReplacement.exe" KeyPath="yes" Id="Exe" />
+            </Component>
+            <Component Guid="c63a97eb-2794-44e8-8d99-84c511effb04">
+                <File Source="..\Application\bin\debug\GmailNotifierReplacement.pdb" KeyPath="yes" />
+            </Component>
+            <Component Guid="1a73e3b2-d8f5-45b1-8ef9-5d207f850c28">
+                <File Source="..\Application\bin\debug\GmailNotifierReplacement.exe.config" KeyPath="yes" />
+            </Component>
+            <Component Guid="52590672-95ca-4122-ac47-4e15d99974a4">
+                <File Source="..\Application\bin\debug\log4net.dll" KeyPath="yes" />
+            </Component>
+            <Component Guid="2f0340ef-029c-40f7-b282-2913a2847b70">
+                <File Source="..\License.txt" KeyPath="yes" Id="License" />
+            </Component>
+        </ComponentGroup>
+        
+        <Component Id="Shortcuts" Guid="65dec158-8bde-49db-8925-0015c04c78e3" Directory="ApplicationProgramsFolder">
+            <Shortcut Id="ApplicationStartMenuShortcut" Name="Gmail Notifier Replacement" Description="Gmail Notifier Replacement" Target="[#Exe]" WorkingDirectory="INSTALLFOLDER" />
+            <Shortcut Id="ApplicationLicenseShortcut" Name="Gmail Notifier Replacement License" Description="GNU GENERAL PUBLIC LICENSE" Target="[#License]" WorkingDirectory="INSTALLFOLDER" />
+            <RemoveFolder Id="ApplicationProgramsFolder" On="uninstall" />
+            <RegistryValue Root="HKCU" Key="Software\Microsoft\GmailNotifierReplacement" Name="installed" Type="integer" Value="1" KeyPath="yes" />
+        </Component>
+
+        <Component Id="Registry" Guid="0bf274ed-814b-4d5d-9044-823d159a4149" Directory="TARGETDIR">
+            <RegistryValue Id="AutoStartRegistryKey"
+                           Root="HKMU"
+                           Action="write"
+                           Key="Software\Microsoft\Windows\CurrentVersion\Run"
+                           Name="Gmail Notifier Replacement"
+                           Value="[INSTALLDIR]GmailNotifierReplacement.exe"
+                           Type="string" />
+        </Component>
+        
+        <Property Id="WixShellExecTarget" Value="[#Exe]" />
+        <CustomAction Id="LaunchApplication" BinaryKey="WixCA" DllEntry="WixShellExec" Impersonate="yes" />
+
+    </Product>
+</Wix>

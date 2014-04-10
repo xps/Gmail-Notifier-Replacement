@@ -8,7 +8,7 @@ This is an open-source alternative to the official Google Gmail Notifier (now re
 Features
 ===============================
 
-Currently it will show the mail icon in the system tray, turning blue when you have
+This is rather simple. It will show the mail icon in the system tray, turning blue when you have
 unread mail. A balloon tooltip will pop up when you receive mail. Hovering over the
 icon will show a tooltip letting you know how many unread emails you have.
 
@@ -20,14 +20,18 @@ To do list
 ===============================
 
  - Sounds
- - Installer
+ - Better preview of incoming mail
 
 How to use?
 ===============================
 
 First, you will need to **generate an application-specific password** in your [Google Account][4], under the Security > Password > App Passwords section. It will not work with your real password.
 
-Download, unzip, and run the exe file (or set up Windows to start it up for you automatically).
+Then, either download:
+
+ - **The installer**: this will install the program and set it up to automatically start with Windows. or,
+ - **The binaries** in zip format: you will have to extract this and start it (or set up Windows to start it up for you) yourself.
+
 On the first run, you will be asked for credentials (these will be stored [securely][5]).
 
 **Requires the .NET Framework 3.5 or above** (Client Profile is ok).
@@ -35,7 +39,7 @@ On the first run, you will be asked for credentials (these will be stored [secur
 Download
 ===============================
 
-Download binaries from [here][2].
+Download [here][2] from GitHub.
 
 Change Log
 ===============================

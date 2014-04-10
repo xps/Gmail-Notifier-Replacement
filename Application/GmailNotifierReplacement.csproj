@@ -40,7 +40,7 @@
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.13.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>packages\log4net.2.0.3\lib\net35-client\log4net.dll</HintPath>
+      <HintPath>..\packages\log4net.2.0.3\lib\net35-client\log4net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
@@ -101,7 +101,6 @@
       <LastGenOutput>SystrayIcons.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <None Include="packages.config" />
-    <None Include="ReadMe.md" />
     <None Include="UserSettings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>UserSettings.Designer.cs</LastGenOutput>
@@ -113,8 +112,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="License.txt" />
-    <None Include="Screenshot.png" />
     <None Include="Icons\systray-icon-faded.ico" />
     <None Include="Icons\systray-icon-error.ico" />
     <None Include="Icons\systray-icon-blue.ico" />
