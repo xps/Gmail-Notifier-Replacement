@@ -60,7 +60,7 @@
                            Action="write"
                            Key="Software\Microsoft\Windows\CurrentVersion\Run"
                            Name="Gmail Notifier Replacement"
-                           Value="[INSTALLDIR]GmailNotifierReplacement.exe"
+                           Value="[INSTALLFOLDER]GmailNotifierReplacement.exe"
                            Type="string" />
         </Component>
         
