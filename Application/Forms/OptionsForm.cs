@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows.Forms;
 
 namespace GmailNotifierReplacement
@@ -33,6 +34,11 @@ namespace GmailNotifierReplacement
         private void cancelButton_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void appPasswordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            Process.Start("https://www.google.com/settings/security");
         }
     }
 }

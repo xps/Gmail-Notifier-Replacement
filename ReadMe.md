@@ -5,16 +5,23 @@ This is an open-source alternative to the official Google Gmail Notifier (now re
 
 ![Screenshot][3]
 
+Download
+===============================
+
+Download the portable binaries or the installer [here][2].
+
 Features
 ===============================
 
-This is rather simple. It will show the mail icon in the system tray, turning blue when you have
+This is rather simple and aims to work just like the original Google Notifier.
+
+It will show the mail icon in the system tray, turning blue when you have
 unread mail. A balloon tooltip will pop up when you receive mail. Hovering over the
 icon will show a tooltip letting you know how many unread emails you have.
 
 It will check mail every couple of minutes via [Gmail's Atom Feed][1].
 
-**Note:** This feed is only available for Gmail accounts on Google Apps domains.
+**Note:** This feed is only available for Gmail accounts on Google Apps domains (...@gmail.com).
 
 To do list
 ===============================
@@ -22,7 +29,7 @@ To do list
  - Sounds
  - Better preview of incoming mail
 
-How to use?
+Getting started
 ===============================
 
 First, you will need to **generate an application-specific password** in your [Google Account][4], under the Security > Password > App Passwords section. It will not work with your real password.
@@ -35,11 +42,6 @@ Then, either download:
 On the first run, you will be asked for credentials (these will be stored [securely][5]).
 
 **Requires the .NET Framework 3.5 or above** (Client Profile is ok).
-
-Download
-===============================
-
-Download [here][2] from GitHub.
 
 Change Log
 ===============================

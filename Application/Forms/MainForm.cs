@@ -4,6 +4,7 @@ using System;
 using System.Configuration;
 using System.Diagnostics;
 using System.Linq;
+using System.Net;
 using System.Windows.Forms;
 
 namespace GmailNotifierReplacement
@@ -93,7 +94,9 @@ namespace GmailNotifierReplacement
 
                 // Update the icon
                 notifyIcon.Icon = unreadCount > 0 ? SystrayIcons.SystrayIconBlue : SystrayIcons.SystrayIconFaded;
-                notifyIcon.Text = unreadCount > 0 ? string.Format("{0} unread emails", unreadCount) : "No unread mail";
+                notifyIcon.Text = unreadCount <= 0 ? "No unread mail" :
+                                  unreadCount == 1 ? "1 unread email" :
+                                  string.Format("{0} unread emails", unreadCount);
 
                 // Show a notification
                 if (unreadCount > 0)
@@ -128,6 +131,14 @@ namespace GmailNotifierReplacement
 
                 notifyIcon.Icon = SystrayIcons.SystrayIconError;
                 notifyIcon.Text = "Couldn't check mail";
+
+                var webException = x as WebException;
+                if (webException != null)
+                {
+                    var response = webException.Response as HttpWebResponse;
+                    if (response != null && response.StatusCode == HttpStatusCode.Unauthorized)
+                        notifyIcon.Text = "Check credentials and make sure to use an app-specific password";
+                }
             }
         }
 

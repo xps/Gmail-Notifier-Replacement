@@ -34,13 +34,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.usernameTextBox = new System.Windows.Forms.TextBox();
             this.passwordTextBox = new System.Windows.Forms.TextBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.appPasswordLink = new System.Windows.Forms.LinkLabel();
             this.SuspendLayout();
             // 
             // cancelButton
             // 
             this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.cancelButton.Location = new System.Drawing.Point(263, 70);
+            this.cancelButton.Location = new System.Drawing.Point(287, 100);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 0;
@@ -52,7 +54,7 @@
             // 
             this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-            this.okButton.Location = new System.Drawing.Point(182, 70);
+            this.okButton.Location = new System.Drawing.Point(206, 100);
             this.okButton.Name = "okButton";
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 1;
@@ -95,13 +97,35 @@
             this.passwordTextBox.TabIndex = 5;
             this.passwordTextBox.UseSystemPasswordChar = true;
             // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(91, 61);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(212, 26);
+            this.label3.TabIndex = 6;
+            this.label3.Text = "Make sure you use an \r\nIt will not work with your account password!";
+            // 
+            // appPasswordLink
+            // 
+            this.appPasswordLink.AutoSize = true;
+            this.appPasswordLink.Location = new System.Drawing.Point(201, 61);
+            this.appPasswordLink.Name = "appPasswordLink";
+            this.appPasswordLink.Size = new System.Drawing.Size(148, 13);
+            this.appPasswordLink.TabIndex = 7;
+            this.appPasswordLink.TabStop = true;
+            this.appPasswordLink.Text = "application-specific password.";
+            this.appPasswordLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.appPasswordLink_LinkClicked);
+            // 
             // OptionsForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.cancelButton;
-            this.ClientSize = new System.Drawing.Size(350, 105);
+            this.ClientSize = new System.Drawing.Size(374, 135);
             this.ControlBox = false;
+            this.Controls.Add(this.appPasswordLink);
+            this.Controls.Add(this.label3);
             this.Controls.Add(this.passwordTextBox);
             this.Controls.Add(this.usernameTextBox);
             this.Controls.Add(this.label2);
@@ -126,5 +150,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.TextBox usernameTextBox;
         private System.Windows.Forms.TextBox passwordTextBox;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.LinkLabel appPasswordLink;
     }
 }
