@@ -86,6 +86,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 
  [1]: https://developers.google.com/gmail/gmail_inbox_feed
  [2]: https://github.com/xps/Gmail-Notifier-Replacement/releases
- [3]: https://raw2.github.com/xps/Gmail-Notifier-Replacement/master/Screenshot.png
+ [3]: https://github.com/xps/Gmail-Notifier-Replacement/raw/master/Screenshot.png
  [4]: https://www.google.com/settings/security
  [5]: http://msdn.microsoft.com/en-us/library/ms995355.aspx
