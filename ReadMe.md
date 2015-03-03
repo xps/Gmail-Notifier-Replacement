@@ -47,18 +47,18 @@ Change Log
 ===============================
 
 **1.2.1 - Mar 3, 2015**
-	[by yanoschik]
-	- (minor) added few comments to code and config
-	- config modifications:
-		- NotificationDelay key changed to represent seconds
-		- added key for Google mail url, which replaces the previously hardcoded one (used for opening mailbox in browser)
-		- default logging level set to INFO
-	- reading config moved to a separate method
-	- important config variables are checked for reasonable values, defaults used if failed
-	- added option to show last mail -info in baloon tooltip
-	- clicking on baloon now also opens the browser (like doubleclick on icon or menuitem)
-	- config dialog has the accept button OK assigned (pressing Enter = clicking OK)
-	- minor text changes in baloon tooltips
+  [by yanoschik]
+  - (minor) added few comments to code and config
+  - config modifications:
+    - NotificationDelay key changed to represent seconds
+    - added key for Google mail url, which replaces the previously hardcoded one (used for opening mailbox in browser)
+    - default logging level set to INFO
+  - reading config moved to a separate method
+  - important config variables are checked for reasonable values, defaults used if failed
+  - added option to show last mail -info in baloon tooltip
+  - clicking on baloon now also opens the browser (like doubleclick on icon or menuitem)
+  - config dialog has the accept button OK assigned (pressing Enter = clicking OK)
+  - minor text changes in baloon tooltips
 
 **1.2 - Mar 3, 2014**
 
