@@ -21,7 +21,15 @@ namespace GmailNotifierReplacement
             Application.ThreadException += HandleError;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm());
+            try
+            {
+              Application.Run(new MainForm());
+            }
+            catch (Exception ex)
+            {
+              Logger.Error("Error while running program!", ex);
+              MessageBox.Show("Error while running program!\nSee log for details.\nProgram will close.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
 
             Logger.Info("Program closed.");
         }
