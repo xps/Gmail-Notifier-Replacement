@@ -59,6 +59,8 @@ Change Log
   - clicking on baloon now also opens the browser (like doubleclick on icon or menuitem)
   - config dialog has the accept button OK assigned (pressing Enter = clicking OK)
   - minor text changes in baloon tooltips
+  - general handling of exceptions from MainForm -> log & show message before exit
+  - some minor changes (initial texts for icon and baloontip; notification improved when credentials error occurs; etc.)
 
 **1.2 - Mar 3, 2014**
 
