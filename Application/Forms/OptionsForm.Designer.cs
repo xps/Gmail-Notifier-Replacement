@@ -102,9 +102,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(91, 61);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(212, 26);
+            this.label3.Size = new System.Drawing.Size(217, 26);
             this.label3.TabIndex = 6;
-            this.label3.Text = "Make sure you use an \r\nIt will not work with your account password!";
+            this.label3.Text = "Make sure you use an \r\nIt may not work with your account password!";
             // 
             // appPasswordLink
             // 

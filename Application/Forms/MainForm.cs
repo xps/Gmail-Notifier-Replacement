@@ -219,7 +219,7 @@ namespace GmailNotifierReplacement
                 {
                     if (optionsForm.DialogResult == DialogResult.OK)
                         CheckMail();
-                    else
+                    else if (string.IsNullOrEmpty(UserSettings.Default.Username) || string.IsNullOrEmpty(UserSettings.Default.Password))
                     {
                         Logger.Warn("Missing credentials");
                         notifyIcon.Icon = SystrayIcons.SystrayIconError;
