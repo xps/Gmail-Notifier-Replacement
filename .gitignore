@@ -5,6 +5,7 @@
 # User config files
 *.user
 *.suo
+.vs
 
 # Backup files
 *.bak
