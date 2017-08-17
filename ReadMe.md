@@ -5,10 +5,12 @@ This is an open-source alternative to the official Google Gmail Notifier (now re
 
 ![Screenshot][3]
 
-Download
+Installation
 ===============================
 
-Download the portable binaries or the installer [here][2].
+Download the portable binaries or the installer [here][2], or install with [Chocolatey][6]:
+
+    C:\> choco install gmailnotifier
 
 Features
 ===============================
@@ -63,7 +65,9 @@ Want to contribute?
 
  - Let me know of any issues you may find
    (you may include details from the log file that is created in the same directory as the executable to help troubleshooting).
- - Fork the code and contribute bug fixes or new features.
+ - Fork the code and contribute bug fixes
+ 
+The intent is to keep this app as simple and as close as possible to the original, so there is no plan to implement anything new.
 
 License
 ===============================
@@ -89,3 +93,4 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  [3]: https://github.com/xps/Gmail-Notifier-Replacement/raw/master/Screenshot.png
  [4]: https://www.google.com/settings/security
  [5]: http://msdn.microsoft.com/en-us/library/ms995355.aspx
+ [6]: https://chocolatey.org/packages/gmailnotifier

@@ -1,0 +1,38 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Test your packages in a test environment: https://github.com/chocolatey/chocolatey-test-environment -->
+<package xmlns="http://schemas.microsoft.com/packaging/2015/06/nuspec.xsd">
+    <metadata>
+        <id>gmailnotifier</id>
+        <title>Gmail Notifier Replacement</title>
+        <owners>Xavier Poinas</owners>
+        <authors>Xavier Poinas</authors>
+        <version>1.2.1</version>
+        <projectUrl>https://github.com/xps/Gmail-Notifier-Replacement</projectUrl>
+        <projectSourceUrl>https://github.com/xps/Gmail-Notifier-Replacement</projectSourceUrl>
+        <packageSourceUrl>https://github.com/xps/Gmail-Notifier-Replacement</packageSourceUrl>
+        <iconUrl>https://raw.githubusercontent.com/xps/Gmail-Notifier-Replacement/master/Chocolatey/gmailnotifier/Icon.png</iconUrl>
+        <licenseUrl>https://raw.githubusercontent.com/xps/Gmail-Notifier-Replacement/master/License.txt</licenseUrl>
+        <requireLicenseAcceptance>true</requireLicenseAcceptance>
+        <copyright>Copyright (C) 2014 Xavier Poinas</copyright>
+        <tags>gmail email notifications admin</tags>
+        <summary>A replacement/clone of the (now defunct) official Gmail Notifier</summary>
+        <description>
+            This is rather simple and aims to work just like the original Google Notifier.
+
+            It will show the mail icon in the system tray, turning blue when you have
+            unread mail. A balloon tooltip will pop up when you receive mail. Hovering over the
+            icon will show a tooltip letting you know how many unread emails you have.
+
+            It will check mail every couple of minutes via Gmail's Atom Feed.
+
+            **Note:** This feed is only available for Gmail accounts on Google Apps domains (...@gmail.com).
+        </description>
+        <releaseNotes>
+            - Credentials now set via the Options dialog instead of directly in the config file, and stored securely using the Windows Data Protection API.
+            - Added notifications (balloon tips)
+        </releaseNotes>
+    </metadata>
+    <files>
+        <file src="tools\**" target="tools" />
+    </files>
+</package>

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.30110.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.26730.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GmailNotifierReplacement", "Application\GmailNotifierReplacement.csproj", "{E1EA69E3-0C7C-4F2C-B34A-5777BA323CB9}"
 EndProject
@@ -16,6 +16,7 @@ Project("{930C7802-8A8C-48F9-8165-68863BCCD9DD}") = "Installer", "Installer\Inst
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{038B8DCA-052B-4C27-9C25-429B89E167B6}"
 	ProjectSection(SolutionItems) = preProject
+		Chocolatey\gmailnotifier\gmailnotifier.nuspec = Chocolatey\gmailnotifier\gmailnotifier.nuspec
 		License.txt = License.txt
 		ReadMe.md = ReadMe.md
 		Screenshot.png = Screenshot.png
@@ -54,5 +55,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {3ABBE1E8-743D-4961-AF53-001FAE8CD81C}
 	EndGlobalSection
 EndGlobal
