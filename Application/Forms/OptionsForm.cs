@@ -38,7 +38,7 @@ namespace GmailNotifierReplacement
 
         private void appPasswordLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            Process.Start("https://www.google.com/settings/security");
+            Process.Start("https://myaccount.google.com/apppasswords");
         }
     }
 }

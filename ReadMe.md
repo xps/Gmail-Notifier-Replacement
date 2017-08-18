@@ -5,12 +5,10 @@ This is an open-source alternative to the official Google Gmail Notifier (now re
 
 ![Screenshot][3]
 
-Installation
-===============================
+Supposedly Google retired the app as it was replaced by browser notifications, but these only show when your browser in open.
 
-Download the portable binaries or the installer [here][2], or install with [Chocolatey][6]:
+**This app will notify you of new emails even when your browser is closed.**
 
-    C:\> choco install gmailnotifier
 
 Features
 ===============================
@@ -21,29 +19,33 @@ It will show the mail icon in the system tray, turning blue when you have
 unread mail. A balloon tooltip will pop up when you receive mail. Hovering over the
 icon will show a tooltip letting you know how many unread emails you have.
 
+Double-clicking the icon will open your inbox in the your default browser.
+
 It will check mail every couple of minutes via [Gmail's Atom Feed][1].
 
 **Note:** This feed is only available for Gmail accounts on Google Apps domains (...@gmail.com).
 
-To do list
+
+Installation
 ===============================
 
- - Sounds
- - Better preview of incoming mail
+Download the portable binaries or the installer [here][2], or install with [Chocolatey][6]:
+
+    C:\> choco install gmailnotifier
+
+The installer and the Chocolatey package will set up the app to start automatically with Windows. If you download the binaries, you will need to set that up yourself, if you want it.
+
 
 Getting started
 ===============================
 
-First, you will need to **generate an application-specific password** in your [Google Account][4], under the Security > Password > App Passwords section. It will not work with your real password.
-
-Then, either download:
-
- - **The installer**: this will install the program and set it up to automatically start with Windows. or,
- - **The binaries** in zip format: you will have to extract this and start it (or set up Windows to start it up for you) yourself.
+First, you will need to **generate an [application-specific password][4]** in your Google Account. It will not work with your real password (and you shouldn't be giving your account password to any app anyway).
 
 On the first run, you will be asked for credentials (these will be stored [securely][5]).
 
-**Requires the .NET Framework 3.5 or above** (Client Profile is ok).
+**Requires the .NET Framework 3.5 or above** (Client Profile is ok).  
+If you run Windows 7 or later, you most likely already have this.
+
 
 Change Log
 ===============================
@@ -59,6 +61,13 @@ Change Log
 **1.0 - Feb 18, 2014**
 
  - Initial version
+
+
+To do list
+===============================
+
+ - Notification sound
+ 
  
 Want to contribute?
 ===============================
@@ -68,6 +77,7 @@ Want to contribute?
  - Fork the code and contribute bug fixes
  
 The intent is to keep this app as simple and as close as possible to the original, so there is no plan to implement anything new.
+
 
 License
 ===============================
@@ -91,6 +101,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
  [1]: https://developers.google.com/gmail/gmail_inbox_feed
  [2]: https://github.com/xps/Gmail-Notifier-Replacement/releases
  [3]: https://github.com/xps/Gmail-Notifier-Replacement/raw/master/Screenshot.png
- [4]: https://www.google.com/settings/security
+ [4]: https://myaccount.google.com/apppasswords
  [5]: http://msdn.microsoft.com/en-us/library/ms995355.aspx
  [6]: https://chocolatey.org/packages/gmailnotifier
