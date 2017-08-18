@@ -30,6 +30,7 @@
             this.viewInboxToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkMailNowToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tellMeAgainToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.lastEmailInfoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
@@ -41,12 +42,13 @@
             // notifyIcon
             // 
             this.notifyIcon.BalloonTipIcon = System.Windows.Forms.ToolTipIcon.Info;
-            this.notifyIcon.BalloonTipText = "You have no unread mail.";
+            this.notifyIcon.BalloonTipText = "n/a";
             this.notifyIcon.BalloonTipTitle = "Gmail";
             this.notifyIcon.ContextMenuStrip = this.contextMenuStrip;
             this.notifyIcon.Icon = ((System.Drawing.Icon)(resources.GetObject("notifyIcon.Icon")));
-            this.notifyIcon.Text = "No unread mail";
+            this.notifyIcon.Text = "No info available";
             this.notifyIcon.Visible = true;
+            this.notifyIcon.BalloonTipClicked += new System.EventHandler(this.notifyIcon_BalloonTipClicked);
             this.notifyIcon.DoubleClick += new System.EventHandler(this.notifyIcon_DoubleClick);
             // 
             // contextMenuStrip
@@ -55,6 +57,7 @@
             this.viewInboxToolStripMenuItem,
             this.checkMailNowToolStripMenuItem,
             this.tellMeAgainToolStripMenuItem,
+            this.lastEmailInfoToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.aboutToolStripMenuItem,
             this.toolStripMenuItem1,
@@ -83,6 +86,13 @@
             this.tellMeAgainToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
             this.tellMeAgainToolStripMenuItem.Text = "Tell Me A&gain";
             this.tellMeAgainToolStripMenuItem.Click += new System.EventHandler(this.tellMeAgainToolStripMenuItem_Click);
+            // 
+            // lastEmailInfoToolStripMenuItem
+            // 
+            this.lastEmailInfoToolStripMenuItem.Name = "lastEmailInfoToolStripMenuItem";
+            this.lastEmailInfoToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+            this.lastEmailInfoToolStripMenuItem.Text = "&Last email info";
+            this.lastEmailInfoToolStripMenuItem.Click += new System.EventHandler(this.lastEmailInfoToolStripMenuItem_Click);
             // 
             // optionsToolStripMenuItem
             // 
@@ -140,6 +150,7 @@
         private System.Windows.Forms.Timer timer;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem lastEmailInfoToolStripMenuItem;
     }
 }
 

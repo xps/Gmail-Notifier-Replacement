@@ -15,8 +15,17 @@ namespace GmailNotifierReplacement
         // Logger
         private static readonly ILog Logger = LogManager.GetLogger(typeof(MainForm));
 
+        // Settings defaults
+        private const int m_notificationDelay_Min = 1; //seconds
+        private const int m_notificationDelay_Max = 60;
+        private const int m_notificationDelay_Default = 5;
+        private const int m_CheckInterval_Min = 1; //minutes
+        private const int m_CheckInterval_Max = 60;
+        private const int m_CheckInterval_Default = 1;
+
         // These settings are configurable via the app.config file
         private int notificationDelay;
+        private String gmailUrl;
 
         // The current state of the inbox
         private int unreadCount;
@@ -36,13 +45,14 @@ namespace GmailNotifierReplacement
             InitializeComponent();
 
             // Load the configuration
-            this.notificationDelay = Convert.ToInt32(ConfigurationManager.AppSettings["NotificationDelay"]);
+            LoadConfig();
 
             // Initialize the ATOM client
+            if (ConfigurationManager.AppSettings["AtomFeedUrl"].ToString() == string.Empty)
+            {
+              throw new ArgumentNullException("[AtomFeedUrl]", "Invalid config: [AtomFeedUrl] not set !");
+            }
             this.atomMailChecker = new AtomMailChecker(ConfigurationManager.AppSettings["AtomFeedUrl"]);
-
-            // Set the timer interval from the config (convert minutes to milliseconds)
-            timer.Interval = Convert.ToInt32(ConfigurationManager.AppSettings["CheckInterval"]) * 60 * 1000;
 
             // Have we set the username/password already?
             if (string.IsNullOrEmpty(UserSettings.Default.Username))
@@ -54,6 +64,39 @@ namespace GmailNotifierReplacement
             {
                 // Don't wait for the first timer event
                 CheckMail();
+            }
+        }
+
+        // Loads the configuration
+        private void LoadConfig()
+        {
+            // Set the notification baloon delay
+            int a_notificationDelay = Convert.ToInt32(ConfigurationManager.AppSettings["NotificationDelay"]);
+            if (a_notificationDelay > m_notificationDelay_Max || a_notificationDelay < m_notificationDelay_Min)
+            {
+                Logger.Warn("Invalid config: [NotificationDelay] = " + a_notificationDelay.ToString() + " ! ...using default");
+                a_notificationDelay = m_notificationDelay_Default;
+            }
+            this.notificationDelay = a_notificationDelay * 1000; // (convert seconds to milliseconds)
+  
+            // Set the timer interval from the config
+            int a_CheckInterval = Convert.ToInt32(ConfigurationManager.AppSettings["CheckInterval"]);
+            if (a_CheckInterval > 60 || a_CheckInterval < 1)
+            {
+                Logger.Warn("Invalid config: [CheckInterval] = " + a_CheckInterval.ToString() + " ! ...using default");
+                a_CheckInterval = m_CheckInterval_Default;
+            }
+            timer.Interval = a_CheckInterval * 60 * 1000; // (convert seconds to milliseconds)
+  
+            //Gmail url
+            if (ConfigurationManager.AppSettings["GoogleMailUrl"].ToString().Length == 0)
+            {
+                Logger.Warn("Invalid config: [GoogleMailUrl] = " + ConfigurationManager.AppSettings["GoogleMailUrl"].ToString() + " ! ...using default");
+                this.gmailUrl = "https://www.google.com/accounts/ServiceLogin?service=mail";
+            }
+            else
+            {
+                this.gmailUrl = ConfigurationManager.AppSettings["GoogleMailUrl"].ToString();
             }
         }
 
@@ -70,7 +113,7 @@ namespace GmailNotifierReplacement
         }
 
         // Downloads the latest Atom feed to check for new mail
-        private void CheckMail()
+        private void CheckMail(bool showLast = false)
         {
             Logger.Debug("Checking mail...");
 
@@ -84,6 +127,12 @@ namespace GmailNotifierReplacement
                     Logger.Warn("Missing credentials");
                     notifyIcon.Icon = SystrayIcons.SystrayIconError;
                     notifyIcon.Text = "Please set username/password in Options";
+                    if (showLast)
+                    {
+                      notifyIcon.BalloonTipTitle = "Gmail";
+                      notifyIcon.BalloonTipText = "Please set username/password in Options";
+                      notifyIcon.ShowBalloonTip(notificationDelay);
+                    }
                     return;
                 }
 
@@ -101,20 +150,32 @@ namespace GmailNotifierReplacement
                 // Show a notification
                 if (unreadCount > 0)
                 {
+                    if (showLast)
+                        lastMail = null;
+
                     var newEmails = atomMailChecker.GetNewEmails(lastMail);
 
-                    if (newEmails.Count() == 1)
+                    if (showLast)
                     {
-                        notifyIcon.BalloonTipTitle = "New mail from: " + newEmails.Single().From;
-                        notifyIcon.BalloonTipText = newEmails.Single().Subject + Environment.NewLine + newEmails.Single().Preview;
+                        notifyIcon.BalloonTipTitle = "Last mail from:  " + newEmails.First().From;
+                        notifyIcon.BalloonTipText = "[Subject:] " + newEmails.First().Subject + Environment.NewLine + "[Preview:] " + newEmails.First().Preview;
                         notifyIcon.ShowBalloonTip(notificationDelay);
                     }
-                    if (newEmails.Count() > 1)
+                    else
                     {
-                        notifyIcon.BalloonTipTitle = "You've got mail";
-                        notifyIcon.BalloonTipText = string.Format("You have {0} new emails", unreadCount);
-                        notifyIcon.ShowBalloonTip(notificationDelay);
-                    }                    
+                        if (newEmails.Count() == 1)
+                        {
+                            notifyIcon.BalloonTipTitle = "New mail from:  " + newEmails.Single().From;
+                            notifyIcon.BalloonTipText = "[Subject:] " + newEmails.Single().Subject + Environment.NewLine + "[Preview:] " + newEmails.Single().Preview;
+                            notifyIcon.ShowBalloonTip(notificationDelay);
+                        }
+                        if (newEmails.Count() > 1)
+                        {
+                            notifyIcon.BalloonTipTitle = "You've got mail";
+                            notifyIcon.BalloonTipText = string.Format("You have {0} new emails", unreadCount);
+                            notifyIcon.ShowBalloonTip(notificationDelay);
+                        }
+                    }
                 }
                 else
                 {
@@ -158,6 +219,12 @@ namespace GmailNotifierReplacement
                 {
                     if (optionsForm.DialogResult == DialogResult.OK)
                         CheckMail();
+                    else if (string.IsNullOrEmpty(UserSettings.Default.Username) || string.IsNullOrEmpty(UserSettings.Default.Password))
+                    {
+                        Logger.Warn("Missing credentials");
+                        notifyIcon.Icon = SystrayIcons.SystrayIconError;
+                        notifyIcon.Text = "Please set username/password in Options";
+                    }
 
                     optionsForm = null;
                 };
@@ -186,13 +253,13 @@ namespace GmailNotifierReplacement
         private void notifyIcon_DoubleClick(object sender, EventArgs e)
         {
             Logger.Debug("System tray icon: double click");
-            Process.Start("https://mail.google.com");
+            Process.Start(gmailUrl);
         }
 
         private void viewInboxToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Logger.Debug("Context menu: view inbox");
-            Process.Start("https://mail.google.com");
+            Process.Start(gmailUrl);
         }
 
         private void checkMailNowToolStripMenuItem_Click(object sender, EventArgs e)
@@ -222,6 +289,21 @@ namespace GmailNotifierReplacement
         {
             Logger.Debug("Context menu: exit");
             Application.Exit();
+        }
+
+        private void lastEmailInfoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Logger.Debug("Context menu: show last email");
+            CheckMail(true);
+        }
+
+        private void notifyIcon_BalloonTipClicked(object sender, EventArgs e)
+        {
+            Logger.Debug("Baloon tooltip: clicked");
+            if (unreadCount > 0)
+            {
+                Process.Start(gmailUrl);
+            }
         }
 
         #endregion
